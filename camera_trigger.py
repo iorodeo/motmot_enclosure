@@ -1,5 +1,5 @@
 """
-Test using bnc connnector module from another program
+Makes the camera trigger board
 """
 from py2scad import *
 import bnc_connector

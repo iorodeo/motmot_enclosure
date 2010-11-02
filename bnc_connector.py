@@ -1,5 +1,5 @@
 """
-Makes PCB Mount BNC connector. 
+Makes a single PCB Mount BNC connector. 
 
 """
 import sys

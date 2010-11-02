@@ -1,5 +1,5 @@
 """
-Test using bnc connnector module from another program
+Makes four BNC connectors spaced for the motmot breakout boards
 """
 from py2scad import *
 import bnc_connector
