@@ -3,10 +3,6 @@ Makes four BNC connectors spaced for the motmot breakout boards
 """
 from py2scad import *
 import bnc_connector
-base_x = bnc_connector.base_x
-base_z = bnc_connector.base_z
-edge_gap = 5.5
-conn_gap = 11
 
 bnc_conn = bnc_connector.get_bnc_connector()
 
@@ -14,13 +10,16 @@ bnc_conn = bnc_connector.get_bnc_connector()
 INCH2MM = 25.4
 INCH2CM = 2.54
 
-
-x_side = 4*INCH2MM
+base_x = bnc_connector.base_x
+base_z = bnc_connector.base_z
+#edge_gap = 5.5
+#conn_gap = 11
+#x_side = 4*INCH2MM
 y_side = 31.8
 thickness = 1.75
-standoff_height = 12.67
-standoff_radius = 3.23
-standoff_screw_radius = 2.8
+#standoff_height = 12.67
+#standoff_radius = 3.23
+#standoff_screw_radius = 2.8
 bnc_gap = 1*INCH2MM
 
 

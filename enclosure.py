@@ -29,7 +29,7 @@ panel_tab_top = Cube(size=[tab_length, thickness, 1.05*thickness])
 floor = Cube(size=[enclosure_width,enclosure_length, thickness])
 side = Cube(size=[thickness, enclosure_length-thickness, enclosure_height-2*thickness])
 back = Cube(size=[enclosure_width, thickness, enclosure_height-2*thickness])
-tab_cube = Cube(size=[thickness, tab_length, thickness])
+tab_cube = Cube(size=[thickness, tab_length, thickness])                        
 back_tab_cube = Cube(size=[tab_length, thickness, thickness])
 lid = Cube(size=[enclosure_width,enclosure_length, thickness])
 
@@ -58,7 +58,7 @@ neg_side = Translate(neg_side, v=[0, -0.5*thickness, 0])
 oversize_pos_side = Translate(side, v=[0.5*enclosure_width - 0.5*thickness, 0, 0.5*enclosure_height-0.5*thickness])
 tab_cube_1 = Translate(tab_cube, v=[0.5*enclosure_width - 0.5*thickness,0.5*(0.5*enclosure_length),0])
 tab_cube_2 = Translate(tab_cube, v=[0.5*enclosure_width - 0.5*thickness, -0.5*(0.5*enclosure_length),0])
-oversize_panel_tab_1 = Translate(oversize_panel_tab, v=[0.5*enclosure_width - 0.5*thickness, 0.5*enclosure_length,0.5*enclosure_height])
+oversize_panel_tab_1 = Translate(oversize_panel_tab, v=[0.5*enclosure_width - 0.5*thickness, 0.5*enclosure_length ,0.5*enclosure_height])
 oversize_panel_tab_2 = Translate(oversize_panel_tab, v=[0.5*enclosure_width - 0.5*thickness, -0.5*enclosure_length,0.5*enclosure_height])
 oversize_pos_side = Union([oversize_pos_side, tab_cube_1, tab_cube_2, oversize_panel_tab_1, oversize_panel_tab_2])
 oversize_pos_side = Translate(oversize_pos_side, v=[0, -0.5*thickness, 0])
@@ -69,7 +69,7 @@ tab_cube_4 = Translate(tab_cube, v=[-(0.5*enclosure_width - 0.5*thickness), -0.5
 oversize_panel_tab_3 = Translate(oversize_panel_tab, v=[-(0.5*enclosure_width - 0.5*thickness), 0.5*(enclosure_length),0.5*enclosure_height])
 oversize_panel_tab_4 = Translate(oversize_panel_tab, v=[-(0.5*enclosure_width - 0.5*thickness), -0.5*(enclosure_length),0.5*enclosure_height])
 oversize_neg_side = Union([oversize_neg_side, tab_cube_3, tab_cube_4, oversize_panel_tab_3, oversize_panel_tab_4])
-oversize_neg_side = Translate(neg_side, v=[0, -0.5*thickness, 0])
+oversize_neg_side = Translate(oversize_neg_side, v=[0, -0.5*thickness, 0])
 
 back = Translate(back, v=[0, 0.5*enclosure_length, 0.5*enclosure_height-0.5*thickness])
 tab_cube_5 = Translate(back_tab_cube, v=[0,0.5*enclosure_length,0])
@@ -99,10 +99,10 @@ floor = Union([floor,  panel_tab_8, panel_tab_9, panel_tab_10])
 
 standoffa = Translate(standoff, v=[0, 0.5*enclosure_length-standoff_radius - 1*thickness, 0.5*standoff_height])
 standoffb = Translate(standoff, v=[0, -(0.5*enclosure_length-standoff_radius - 1*thickness), 0.5*standoff_height])
-standoff1 = Translate(standoffa, v=[0.5*enclosure_width-standoff_radius-1*thickness,0,0])
-standoff2 = Translate(standoffb, v=[0.5*enclosure_width-standoff_radius-1*thickness, 0,0])
-standoff3 = Translate(standoffa, v=[-(0.5*enclosure_width-standoff_radius-1*thickness),0,0])
-standoff4 = Translate(standoffb, v=[-(0.5*enclosure_width-standoff_radius-1*thickness),0,0])
+standoff1 = Translate(standoffa, v=[0.5*enclosure_width-standoff_radius-1*thickness,0,0.5*thickness])
+standoff2 = Translate(standoffb, v=[0.5*enclosure_width-standoff_radius-1*thickness, 0,0.5*thickness])
+standoff3 = Translate(standoffa, v=[-(0.5*enclosure_width-standoff_radius-1*thickness),0,0.5*thickness])
+standoff4 = Translate(standoffb, v=[-(0.5*enclosure_width-standoff_radius-1*thickness),0,0.5*thickness])
 standoff_group = Union([standoff1, standoff2, standoff3, standoff4])
 
 
@@ -126,10 +126,16 @@ lid = Difference([lid, pos_side, neg_side, back, standoff_screw1, standoff_screw
 """""""""""""""""""""""""""""
 For importing into motmot 
 """""""""""""""""""""""""""""
+def get_oversizetabs_enclosure():
+    part = Union([oversize_pos_side, oversize_neg_side, floor, lid, back]); 
+    return part
+
+def get_enclosure_floor():
+    part = Union([floor]) 
+    return part
+
 def get_enclosure():
-#    part = Union([oversize_pos_side, oversize_neg_side, floor, lid]); # For panel difference
-#    part = Union([floor, back, pos_side, neg_side, lid, standoff1, standoff2, standoff3, standoff4]); # For viewing all parts
-#    part = Union([floor]) # For floor difference
+    part = Union([floor, back, pos_side, neg_side, lid, standoff1, standoff2, standoff3, standoff4]); 
     return part
 
 
@@ -170,9 +176,10 @@ if __name__ == "__main__":
 #    part = get_enclosure()
     prog = SCAD_Prog()
     prog.fn=50
-#    prog.add(part)
-    prog.add(pos_side)
-    prog.add(neg_side)
+#    prog.add(pos_side)
+#    prog.add(neg_side)
+    prog.add(oversize_pos_side)
+    prog.add(oversize_neg_side)
     prog.add(back)
     prog.add(lid)
     prog.add(floor)
