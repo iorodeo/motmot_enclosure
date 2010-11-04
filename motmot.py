@@ -64,12 +64,12 @@ motmot_components = Translate(motmot_components, v=[0, 0.5*bnc_conn_length + 1*t
 """""""""""""""""""""""""""""
 Choice 1: View assembly
 """""""""""""""""""""""""""""
-enclosure_assembly = Translate(enclosure, v=[0,0.5*enclosure_length+0.5*thickness,0.5*thickness])
+#enclosure_assembly = Translate(enclosure, v=[0,0.5*enclosure_length+0.5*thickness,0.5*thickness])
 prog_assembly = SCAD_Prog()
 prog_assembly.fn=100
 prog_assembly.add(panel)
 prog_assembly.add(motmot_components)
-prog_assembly.add(enclosure_assembly)
+#prog_assembly.add(enclosure_assembly)
 prog_assembly.write('motmot_assembly.scad');
 
 """""""""""""""""""""""""""""
