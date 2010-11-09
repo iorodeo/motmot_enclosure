@@ -118,8 +118,9 @@ standoff_screw4 = Translate(standoff_screwb, v=[-(0.5*enclosure_width-standoff_r
 Differencing 
 """""""""""""""""""""""""""""
 
-back = Difference([back, pos_side, neg_side])
+back_wall = Difference([back, pos_side, neg_side])
 floor = Difference([floor, back, pos_side, neg_side, standoff_screw1, standoff_screw2, standoff_screw3, standoff_screw4])
+#lid.mod = '%'
 lid = Difference([lid, pos_side, neg_side, back, standoff_screw1, standoff_screw2, standoff_screw3, standoff_screw4])
 
 
@@ -127,7 +128,7 @@ lid = Difference([lid, pos_side, neg_side, back, standoff_screw1, standoff_screw
 For importing into motmot 
 """""""""""""""""""""""""""""
 def get_oversizetabs_enclosure():
-    part = Union([oversize_pos_side, oversize_neg_side, floor, lid, back]); 
+    part = Union([oversize_pos_side, oversize_neg_side, floor, lid, back_wall]); 
     return part
 
 def get_enclosure_floor():
